@@ -1,0 +1,53 @@
+#include <stdio.h>
+
+#define TAXA_DESCONTO 0.09
+
+void calcular_salario_bruto(double valor_hora, double horas_trabalhadas, double *ptr_salario_bruto){
+    *ptr_salario_bruto = valor_hora * horas_trabalhadas;
+}
+
+void calcular_desconto(double salario_bruto, double *ptr_desconto) {
+    *ptr_desconto = salario_bruto * TAXA_DESCONTO;
+}
+
+void calcular_salario_liquido(double salario_bruto, double desconto, double *ptr_salario_liquido) {
+    *ptr_salario_liquido = salario_bruto - desconto;
+}
+
+int main() {
+    double valor_hora;
+    double horas_trabalhadas;
+
+    double salario_bruto = 0.0;
+    double desconto = 0.0;
+    double salario_liquido = 0.0;
+
+    printf("Calculadora de Salario Modular (Passagem por Referência)\n");
+    printf("--------------------------------------------------------\n");
+
+    printf("Informe o valor da sua hora de trabalho (ex:25.50): R$ ");
+    if (scanf("%lf", &valor_hora) != 1 || valor_hora < 0) {
+        printf("Erro: Valor da hora inválida.\n");
+        return 1;
+    }
+
+    printf("Informe a quantidade de horas trabalhadas no mês (ex: 160): ");
+    if (scanf("%lf", &horas_trabalhadas) != 1 || horas_trabalhadas < 0) {
+        printf("Erro: Quantidade de horas inválida.\n");
+        return 1;
+    }
+    printf("\n");
+
+    calcular_salario_bruto(valor_hora, horas_trabalhadas, &salario_bruto);
+    calcular_desconto(salario_bruto, &desconto);
+    calcular_salario_liquido(salario_bruto, desconto, &salario_liquido);
+
+    printf("--- Resultados dos Cálculos ---\n");
+
+    printf("Salário Bruto: R$ %.2lf\n", salario_bruto);
+    printf("Desconto (%.0f%%): R$ %.2lf\n", TAXA_DESCONTO * 100, desconto);
+    printf("------------------------------\n");
+    printf("Salário Líquido: R$ %.2lf\n", salario_liquido);
+
+    return 0;
+}
